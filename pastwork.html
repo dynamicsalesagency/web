@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra-Advanced 3D Portfolio Website</title>
+
+    <!-- Font Awesome for Social Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: #ADD8E6;
+            overflow-x: hidden;
+        }
+        a {
+            color: #ADD8E6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #FFA07A;
+        }
+
+        /* Ultra-Advanced Header Styling */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+        .header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 30px rgba(173, 216, 230, 0.3);
+        }
+
+        /* Rotating Logo */
+        .logo img {
+            height: 60px;
+            transition: transform 0.6s ease-in-out;
+            transform-origin: center;
+        }
+        .logo img:hover {
+            transform: rotateY(360deg) scale(1.1);
+            box-shadow: 0px 0px 20px rgba(173, 216, 230, 0.6);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-menu a {
+            font-size: 18px;
+            color: #ADD8E6;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease, transform 0.3s ease;
+            letter-spacing: 1px;
+        }
+        .nav-menu a:hover {
+            color: #FFA07A;
+            transform: translateY(-3px);
+        }
+        .nav-menu a::before, .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #ADD8E6;
+            transition: width 0.3s ease;
+            bottom: -4px;
+            left: 50%;
+        }
+        .nav-menu a:hover::before, .nav-menu a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Get Started Button */
+        .get-started {
+            background-color: #ADD8E6;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 50px;
+            box-shadow: 0px 10px 30px rgba(173, 216, 230, 0.5);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .get-started:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0px 15px 45px rgba(173, 216, 230, 0.7);
+        }
+
+        /* Mobile Toggle Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: #ADD8E6;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                background-color: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 80px;
+                right: 0;
+                width: 100%;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.3);
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #000000;
+            padding: 60px 20px;
+            color: #ADD8E6;
+            text-align: center;
+            box-shadow: 0px -4px 20px rgba(173, 216, 230, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-links a {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 0px 0px 5px rgba(173, 216, 230, 0.5);
+            transition: transform 0.4s ease, text-shadow 0.3s ease;
+        }
+        .footer-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            text-shadow: 0px 0px 15px #ADD8E6;
+        }
+
+        /* Social Icons */
+        .social-icons a {
+            margin: 0 15px;
+            font-size: 28px;
+            color: #ADD8E6;
+            transition: transform 0.3s ease, color 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(173, 216, 230, 0.3);
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+        .social-icons a:hover {
+            color: #FFA07A;
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0px 10px 30px rgba(255, 160, 122, 0.6);
+        }
+
+        /* Background Gradient Glow in Footer */
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(173, 216, 230, 0.1), transparent 70%);
+            animation: pulse 8s infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="/img/logo.png" alt="Logo"> <!-- Replace 'logo.png' with your logo image path -->
+        </div>
+        <nav class="nav-menu" id="navMenu">
+            <a href="/index.html">Home</a>
+            <a href="/service.html">Services</a>
+            <a href="/pastwork.html">Portfolio</a>
+            <a href="/about.html">About Us</a>
+            <a href="/checker.html">Website Analyzer</a>
+            <a href="/start.html">Contact</a>
+        </nav>
+        <a href="/start.html" class="get-started">Get Started</a>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon for mobile -->
+    </header>
+
+
+
+
+
+<!-- Featured Work Section -->
+<section class="featured-work-section">
+    <div class="section-header">
+        <h2>Our Featured Work</h2>
+        <p>A selection of our top projects, showcasing our expertise and dedication to excellence.</p>
+    </div>
+    <div class="featured-work-container">
+        <!-- Project 1 -->
+        <div class="project-card">
+            <div class="project-overlay"></div>
+            <img src="img/liveup.png" alt="Project 1 Image">
+            <h3>Liveupgood</h3>
+            <p>A dynamic e-commerce website designed for optimal performance and customer engagement.</p>
+            <a href="https://liveupgood.com" class="view-project-btn">View Project</a>
+        </div>
+        <!-- Project 2 -->
+        <div class="project-card">
+            <div class="project-overlay"></div>
+            <img src="img/fam.png" alt="Project 2 Image">
+            <h3>Famarketshop</h3>
+            <p>An immersive online store developed to establish a trustworthy and captivating brand presence.</p>
+            <a href="#" class="view-project-btn">View Project</a>
+        </div>
+        <!-- Project 3 -->
+        <div class="project-card">
+            <div class="project-overlay"></div>
+            <img src="img/true.png" alt="Project 3 Image">
+            <h3>Truegloryhair</h3>
+            <p>An SEO-optimized website built to attract organic traffic and foster customer loyalty.</p>
+            <a href="https://truegloryhair.com" class="view-project-btn">View Project</a>
+        </div>
+        <!-- Project 4 -->
+        <div class="project-card">
+            <div class="project-overlay"></div>
+            <img src="img/culi.png" alt="Project 4 Image">
+            <h3>The Culinary Co.</h3>
+            <p>A visually appealing website crafted to showcase culinary expertise and increase audience reach.</p>
+            <a href="https://theculinaryco.co" class="view-project-btn">View Project</a>
+        </div>
+        <!-- Project 5 -->
+        <div class="project-card">
+            <div class="project-overlay"></div>
+            <img src="img/nanamacs.png" alt="Project 5 Image">
+            <h3>Nanamacs</h3>
+            <p>A responsive website offering a seamless shopping experience across devices.</p>
+            <a href="https://nanamacs.com" class="view-project-btn">View Project</a>
+        </div>
+        <!-- Project 6 -->
+        <div class="project-card">
+            <div class="project-overlay"></div>
+            <img src="img/insite.png" alt="Project 6 Image">
+            <h3>Insiteactive</h3>
+            <p>A website integrated with a custom analytics dashboard for effective business insights.</p>
+            <a href="https://www.insiteactive.com/en-us" class="view-project-btn">View Project</a>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    /* Featured Work Section Styling */
+    .featured-work-section {
+        background-color: #000000; /* Extreme black background */
+        color: #ADD8E6; /* Light blue text color */
+        padding: 80px 20px;
+        text-align: center;
+    }
+
+    /* Section Title and Subtitle */
+    .section-header h2 {
+        font-size: 3em;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        color: #FFA500; /* Orange color for title */
+        margin-bottom: 10px;
+    }
+    .section-header p {
+        font-size: 1.2em;
+        font-family: 'Roboto', sans-serif;
+        color: #ADD8E6; /* Light blue for subtitle */
+        max-width: 600px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+    }
+
+    /* Featured Work Container */
+    .featured-work-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        justify-items: center;
+    }
+
+    /* Project Card Styling */
+    .project-card {
+        position: relative;
+        background-color: #1A1A1A; /* Dark background */
+        border-radius: 15px;
+        overflow: hidden;
+        max-width: 300px;
+        padding: 20px;
+        text-align: left;
+        box-shadow: 0px 10px 20px rgba(173, 216, 230, 0.5);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .project-card:hover {
+        transform: translateY(-10px) scale(1.05) rotateX(3deg) rotateY(3deg); /* 3D hover effect */
+        box-shadow: 0px 15px 30px rgba(173, 216, 230, 0.7);
+    }
+
+    /* Overlay Effect */
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(0, 191, 255, 0.2));
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: 1;
+    }
+
+    .project-card:hover .project-overlay {
+        opacity: 1;
+    }
+
+    /* Project Image */
+    .project-card img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0px 4px 15px rgba(173, 216, 230, 0.5);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .project-card img:hover {
+        transform: scale(1.07);
+        box-shadow: 0px 6px 25px rgba(255, 215, 0, 0.6); /* Golden shadow on hover */
+    }
+
+    /* Project Title */
+    .project-card h3 {
+        font-size: 1.5em;
+        color: #FFA500; /* Orange color for title */
+        font-family: 'Montserrat', sans-serif;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Project Description */
+    .project-card p {
+        font-size: 1em;
+        color: #ADD8E6;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* View Project Button */
+    .view-project-btn {
+        display: inline-block;
+        font-size: 1em;
+        color: #000;
+        background-color: #ADD8E6; /* Light blue background for button */
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0px 4px 15px rgba(255, 165, 0, 0.6); /* Orange shadow */
+    }
+
+    .view-project-btn:hover {
+        background-color: #FFA500; /* Orange on hover */
+        color: #000;
+        box-shadow: 0px 6px 20px rgba(255, 215, 0, 0.8); /* Enhanced shadow on hover */
+    }
+
+    /* Responsive Layout for Smaller Screens */
+    @media (max-width: 768px) {
+        .featured-work-container {
+            grid-template-columns: 1fr;
+        }
+        .project-card {
+            max-width: 80%;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="service.html">Services</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2024 Dynamic Marketing Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Font Awesome for Social Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
+    <!-- Toggle Menu JavaScript -->
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
