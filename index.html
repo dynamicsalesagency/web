@@ -5,57 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Sales Agency</title>
 
-      <!-- Primary Meta Tags -->
-  <title>Dynamic Sales Agency | Expert Shopify Development & Ecommerce Solutions</title>
-  <meta name="description" content="Boost your online sales with Dynamic Sales Agency's Shopify development, SEO, and ecommerce optimization services. Our tailored strategies and innovative designs drive conversions and enhance your store’s performance. Partner with us to maximize your ecommerce potential!">
-  <meta name="keywords" content="Shopify development, ecommerce solutions, SEO optimization, online sales boost, Dynamic Sales Agency, digital marketing, store performance, ecommerce strategies, web development">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Dynamic Sales Agency">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dynamicsalesagency.com.ng/">
-  <meta property="og:title" content="Dynamic Sales Agency | Expert Shopify Development & Ecommerce Solutions">
-  <meta property="og:description" content="Boost your online sales with Dynamic Sales Agency's Shopify development, SEO, and ecommerce optimization services.">
-  <meta property="og:image" content="https://dynamicsalesagency.com.ng/img/2.png">
-
-  <!-- Twitter Card data -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://dynamicsalesagency.com.ng/">
-  <meta name="twitter:title" content="Dynamic Sales Agency | Expert Shopify Development & Ecommerce Solutions">
-  <meta name="twitter:description" content="Boost your online sales with Dynamic Sales Agency's Shopify development, SEO, and ecommerce optimization services.">
-  <meta name="twitter:image" content="https://dynamicsalesagency.com.ng/img/2.png">
-
-  <!-- Structured Data Markup (JSON-LD) for Local Business -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Dynamic Sales Agency",
-    "description": "Expert Shopify development and ecommerce optimization services to boost online sales and store performance.",
-    "url": "https://dynamicsalesagency.com.ng/",
-    "logo": "https://dynamicsalesagency.com.ng/img/logo.png",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+2347068033310",
-      "contactType": "Customer Service",
-      "areaServed": "NG",
-      "availableLanguage": ["English"]
-    },
-    "sameAs": [
-      "https://www.tiktok.com/@dynamicsalesagnecy",
-      "https://wa.me/+2347068033310",
-    ]
-  }
-  </script>
-
-  <!-- Additional Meta Tags for SEO -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://dynamicsalesagency.com.ng/">
-
-    <!-- Font Awesome for Social Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    
     <style>
         /* General Reset */
         * {
@@ -69,90 +18,77 @@
             color: #ADD8E6;
             overflow-x: hidden;
         }
-        a {
-            color: #ADD8E6;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #FFA07A;
-        }
 
-        /* Ultra-Advanced Header Styling */
+        /* Header Styling */
         .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 40px;
+            padding: 15px 20px;
             background-color: #000000;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.2);
-            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 15px rgba(173, 216, 230, 0.15);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .header:hover {
             transform: translateY(-2px);
-            box-shadow: 0px 6px 30px rgba(173, 216, 230, 0.3);
+            background-color: rgba(0, 0, 0, 0.95);
         }
 
-        /* Rotating Logo */
+        /* Centered Logo with Scale and Glow Effect */
+        .logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
         .logo img {
-            height: 60px;
-            transition: transform 0.6s ease-in-out;
-            transform-origin: center;
+            height: 50px;
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
         }
         .logo img:hover {
-            transform: rotateY(360deg) scale(1.1);
+            transform: rotate(360deg) scale(1.15);
             box-shadow: 0px 0px 20px rgba(173, 216, 230, 0.6);
         }
 
         /* Navigation Menu */
         .nav-menu {
             display: flex;
-            gap: 30px;
+            flex: 2;
+            justify-content: space-around;
+            gap: 20px;
         }
         .nav-menu a {
             font-size: 18px;
             color: #ADD8E6;
+            padding: 5px 10px;
+            text-decoration: none; /* Remove underline */
             position: relative;
-            padding: 5px 0;
             transition: color 0.3s ease, transform 0.3s ease;
-            letter-spacing: 1px;
         }
         .nav-menu a:hover {
             color: #FFA07A;
-            transform: translateY(-3px);
-        }
-        .nav-menu a::before, .nav-menu a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background-color: #ADD8E6;
-            transition: width 0.3s ease;
-            bottom: -4px;
-            left: 50%;
-        }
-        .nav-menu a:hover::before, .nav-menu a:hover::after {
-            width: 100%;
-            left: 0;
+            transform: scale(1.05) translateY(-2px);
         }
 
         /* Get Started Button */
         .get-started {
             background-color: #ADD8E6;
             color: #000;
-            padding: 12px 30px;
-            border-radius: 50px;
-            box-shadow: 0px 10px 30px rgba(173, 216, 230, 0.5);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            padding: 8px 20px;
+            border-radius: 20px;
             font-weight: bold;
             text-transform: uppercase;
+            text-decoration: none; /* Remove underline */
+            transition: background-color 0.3s ease, transform 0.3s, box-shadow 0.3s ease;
+            box-shadow: 0px 4px 15px rgba(173, 216, 230, 0.5);
         }
         .get-started:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0px 15px 45px rgba(173, 216, 230, 0.7);
+            background-color: #FFA07A;
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0px 8px 30px rgba(255, 160, 122, 0.7);
         }
 
         /* Mobile Toggle Menu */
@@ -162,117 +98,116 @@
             color: #ADD8E6;
             cursor: pointer;
         }
+
+        /* Responsive Header */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
                 flex-direction: column;
-                gap: 10px;
-                background-color: rgba(0, 0, 0, 0.9);
+                background-color: rgba(0, 0, 0, 0.95);
                 position: absolute;
-                top: 80px;
-                right: 0;
+                top: 60px;
+                left: 0;
                 width: 100%;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.3);
+                padding: 15px;
+                border-radius: 0 0 8px 8px;
             }
             .nav-menu.active {
                 display: flex;
             }
             .menu-toggle {
                 display: block;
+                flex: 1;
+                justify-content: flex-start;
+            }
+            .logo {
+                order: 1;
+                flex: 2;
+                justify-content: center;
+            }
+            .get-started {
+                order: 3;
+                justify-content: flex-end;
             }
         }
 
         /* Footer Styling */
         .footer {
             background-color: #000000;
-            padding: 60px 20px;
+            padding: 50px 20px;
             color: #ADD8E6;
             text-align: center;
-            box-shadow: 0px -4px 20px rgba(173, 216, 230, 0.2);
+            border-top: 1px solid rgba(173, 216, 230, 0.2);
             position: relative;
             overflow: hidden;
         }
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 25px;
             margin: 20px 0;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
         }
         .footer-links a {
-            font-size: 1.2em;
-            font-weight: bold;
-            text-shadow: 0px 0px 5px rgba(173, 216, 230, 0.5);
-            transition: transform 0.4s ease, text-shadow 0.3s ease;
+            font-size: 1.1em;
+            text-decoration: none; /* Remove underline */
+            color: #ADD8E6;
+            position: relative;
+            transition: color 0.3s, transform 0.3s;
+            padding: 5px;
         }
         .footer-links a:hover {
-            transform: translateY(-3px) scale(1.1);
-            text-shadow: 0px 0px 15px #ADD8E6;
+            color: #FFA07A;
+            transform: scale(1.1);
         }
 
-        /* Social Icons */
+        /* Social Icons with Glow and Scale Effect */
+        .social-icons {
+            margin: 30px 0;
+        }
         .social-icons a {
             margin: 0 15px;
-            font-size: 28px;
+            font-size: 24px;
             color: #ADD8E6;
-            transition: transform 0.3s ease, color 0.3s ease;
-            box-shadow: 0px 4px 10px rgba(173, 216, 230, 0.3);
-            padding: 10px;
+            text-decoration: none; /* Remove underline */
+            transition: transform 0.3s, color 0.3s, box-shadow 0.3s ease;
+            padding: 12px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.6);
-            position: relative;
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0px 6px 20px rgba(173, 216, 230, 0.4);
         }
         .social-icons a:hover {
             color: #FFA07A;
-            transform: scale(1.2) rotate(10deg);
-            box-shadow: 0px 10px 30px rgba(255, 160, 122, 0.6);
-        }
-
-        /* Background Gradient Glow in Footer */
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(173, 216, 230, 0.1), transparent 70%);
-            animation: pulse 8s infinite;
-            z-index: 0;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
+            transform: scale(1.3);
+            box-shadow: 0px 10px 30px rgba(255, 160, 122, 0.7);
         }
     </style>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById("navMenu");
+            navMenu.classList.toggle("active");
+        }
+    </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">
-            <img src="/img/logo.png" alt="Logo"> <!-- Replace 'logo.png' with your logo image path -->
-        </div>
-        <nav class="nav-menu" id="navMenu">
-            <a href="/index.html">Home</a>
-            <a href="/service.html">Services</a>
-            <a href="/pastwork.html">Portfolio</a>
-            <a href="/about.html">About Us</a>
-            <a href="/checker.html">Website Analyzer</a>
-            <a href="/start.html">Contact</a>
-        </nav>
-        <a href="/start.html" class="get-started">Get Started</a>
-        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon for mobile -->
-    </header>
+
+<!-- Header -->
+<header class="header">
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div> <!-- Toggle Menu Icon on Left -->
+    <div class="logo">
+        <img src="/img/logo.png" alt="Logo"> <!-- Centered Logo -->
+    </div>
+    <nav class="nav-menu" id="navMenu">
+        <a href="/index.html">Home</a>
+        <a href="/service.html">Services</a>
+        <a href="/pastwork.html">Portfolio</a>
+        <a href="/about.html">About Us</a>
+        <a href="/checker.html">Website Analyzer</a>
+        <a href="/start.html">Contact</a>
+    </nav>
+    <a href="/start.html" class="get-started">Get Started</a> <!-- "Get Started" Button on Right -->
+</header>
 
 
 <!-- Full-Width Image Banner Slider with Separate Mobile and Desktop Images -->
