@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Homepage -->
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/</loc>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Core Pages -->
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/about.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/contact.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/privacy.html</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/start.html</loc>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Services Pages -->
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/service.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/web.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/app.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/seo.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/cyb.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/ui.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/digi.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/ecc.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/services/data.html</loc>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Additional Pages (e.g., Past Work) -->
+    <url>
+        <loc>https://dynamicsalesagency.com.ng/past-work.html</loc>
+        <priority>0.6</priority>
+    </url>
+
+</urlset>
