@@ -788,6 +788,7 @@
 
 
 
+
 <!-- Enhanced Christmas Strategy Section -->
 <section class="christmas-strategy-section">
     <div class="content-wrapper">
@@ -830,7 +831,7 @@
             <a href="https://wa.link/z8iuuw" class="cta-button">Discover More Holiday Tips</a>
         </div>
         <div class="image-container">
-            <img src="img/christmas-strategy.png" alt="Christmas Strategy" class="featured-image">
+            <img src="/img/christ.png" alt="Christmas Strategy" class="featured-image">
         </div>
     </div>
 </section>
@@ -843,7 +844,7 @@
 
     /* Christmas Strategy Section Styling */
     .christmas-strategy-section {
-        padding: 100px 20px;
+        padding: 80px 15px;
         background: linear-gradient(135deg, #004d4d, #001f1f);
         color: #ffffff;
         border-radius: 15px;
@@ -854,16 +855,18 @@
     /* Content Wrapper */
     .content-wrapper {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        gap: 50px;
+        gap: 40px;
+        flex-wrap: wrap;
     }
 
     /* Image Container */
     .image-container {
         flex: 1;
-        max-width: 50%;
+        max-width: 100%;
         transition: transform 0.5s ease;
+        text-align: center;
     }
 
     .image-container:hover {
@@ -874,58 +877,60 @@
         width: 100%;
         border-radius: 12px;
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
     }
 
     /* Text Container */
     .text-container {
         flex: 1;
+        max-width: 100%;
         background: rgba(0, 47, 47, 0.9);
-        padding: 30px;
+        padding: 20px;
         border-radius: 15px;
         box-shadow: 0 10px 20px rgba(0, 50, 50, 0.3);
         animation: fadeIn 1s ease forwards;
     }
 
     .text-container h2 {
-        font-size: 2.5em;
+        font-size: 2em;
         font-weight: 700;
         color: #FFD700;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .text-container p {
-        font-size: 1.2em;
-        margin-bottom: 20px;
-        line-height: 1.6;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        line-height: 1.5;
     }
 
     /* Extra Tips Styling */
     .extra-tips {
         background: rgba(255, 215, 0, 0.1);
-        padding: 20px;
+        padding: 15px;
         border-radius: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .extra-tips h3 {
-        font-size: 1.6em;
+        font-size: 1.5em;
         color: #FFA07A;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         text-align: center;
     }
 
     .tips-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 15px;
     }
 
     .tip {
         display: flex;
         align-items: flex-start;
-        gap: 10px;
+        gap: 8px;
         background-color: rgba(0, 0, 0, 0.2);
-        padding: 15px;
+        padding: 12px;
         border-radius: 10px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease;
@@ -936,26 +941,26 @@
     }
 
     .tip-icon {
-        font-size: 2em;
+        font-size: 1.8em;
         color: #FFD700;
     }
 
     .tip-content h4 {
-        font-size: 1.2em;
+        font-size: 1.1em;
         color: #FFD700;
         margin: 0;
     }
 
     .tip-content p {
         margin: 5px 0 0;
-        font-size: 1em;
+        font-size: 0.95em;
     }
 
     /* CTA Button Styling */
     .cta-button {
         display: inline-block;
-        padding: 15px 40px;
-        font-size: 1.1em;
+        padding: 12px 30px;
+        font-size: 1em;
         font-weight: 600;
         color: #000000;
         background-color: #FFD700;
@@ -983,24 +988,11 @@
         .content-wrapper {
             flex-direction: column;
             text-align: center;
-            gap: 30px;
-        }
-
-        .text-container {
-            max-width: 90%;
-            margin: 0 auto;
-        }
-
-        .image-container {
-            max-width: 100%;
+            gap: 20px;
         }
 
         .text-container h2 {
-            font-size: 2em;
-        }
-
-        .text-container p, .extra-tips h3, .tip-content h4, .tip-content p {
-            font-size: 1em;
+            font-size: 1.8em;
         }
 
         .tips-grid {
@@ -1008,18 +1000,48 @@
         }
 
         .cta-button {
-            padding: 12px 30px;
-            font-size: 1em;
+            padding: 10px 25px;
+            font-size: 0.95em;
         }
     }
 
     @media (max-width: 768px) {
-        .content-wrapper {
-            padding: 40px 20px;
+        .christmas-strategy-section {
+            padding: 40px 10px;
+            margin: 10px;
         }
 
         .text-container h2 {
-            font-size: 1.8em;
+            font-size: 1.6em;
+        }
+
+        .text-container p, .extra-tips h3, .tip-content h4, .tip-content p {
+            font-size: 1em;
+        }
+
+        .image-container,
+        .text-container {
+            max-width: 100%;
+        }
+
+        .cta-button {
+            padding: 8px 20px;
+            font-size: 0.9em;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .text-container h2 {
+            font-size: 1.4em;
+        }
+
+        .tip-icon {
+            font-size: 1.5em;
+        }
+
+        .cta-button {
+            padding: 6px 18px;
+            font-size: 0.85em;
         }
     }
 </style>
