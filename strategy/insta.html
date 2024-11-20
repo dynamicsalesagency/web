@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra-Advanced 3D Portfolio Website</title>
+
+    <!-- Font Awesome for Social Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: #ADD8E6;
+            overflow-x: hidden;
+        }
+        a {
+            color: #ADD8E6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #FFA07A;
+        }
+
+        /* Ultra-Advanced Header Styling */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+        .header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 30px rgba(173, 216, 230, 0.3);
+        }
+
+        /* Rotating Logo */
+        .logo img {
+            height: 60px;
+            transition: transform 0.6s ease-in-out;
+            transform-origin: center;
+        }
+        .logo img:hover {
+            transform: rotateY(360deg) scale(1.1);
+            box-shadow: 0px 0px 20px rgba(173, 216, 230, 0.6);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-menu a {
+            font-size: 18px;
+            color: #ADD8E6;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease, transform 0.3s ease;
+            letter-spacing: 1px;
+        }
+        .nav-menu a:hover {
+            color: #FFA07A;
+            transform: translateY(-3px);
+        }
+        .nav-menu a::before, .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #ADD8E6;
+            transition: width 0.3s ease;
+            bottom: -4px;
+            left: 50%;
+        }
+        .nav-menu a:hover::before, .nav-menu a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Get Started Button */
+        .get-started {
+            background-color: #ADD8E6;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 50px;
+            box-shadow: 0px 10px 30px rgba(173, 216, 230, 0.5);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .get-started:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0px 15px 45px rgba(173, 216, 230, 0.7);
+        }
+
+        /* Mobile Toggle Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: #ADD8E6;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                background-color: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 80px;
+                right: 0;
+                width: 100%;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.3);
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #000000;
+            padding: 60px 20px;
+            color: #ADD8E6;
+            text-align: center;
+            box-shadow: 0px -4px 20px rgba(173, 216, 230, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-links a {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 0px 0px 5px rgba(173, 216, 230, 0.5);
+            transition: transform 0.4s ease, text-shadow 0.3s ease;
+        }
+        .footer-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            text-shadow: 0px 0px 15px #ADD8E6;
+        }
+
+        /* Social Icons */
+        .social-icons a {
+            margin: 0 15px;
+            font-size: 28px;
+            color: #ADD8E6;
+            transition: transform 0.3s ease, color 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(173, 216, 230, 0.3);
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+        .social-icons a:hover {
+            color: #FFA07A;
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0px 10px 30px rgba(255, 160, 122, 0.6);
+        }
+
+        /* Background Gradient Glow in Footer */
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(173, 216, 230, 0.1), transparent 70%);
+            animation: pulse 8s infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="/img/logo.png" alt="Logo"> <!-- Replace 'logo.png' with your logo image path -->
+        </div>
+        <nav class="nav-menu" id="navMenu">
+            <a href="/index.html">Home</a>
+            <a href="/service.html">Services</a>
+            <a href="/pastwork.html">Portfolio</a>
+            <a href="/blog.html">Blog</a>
+            <a href="/start.html">Contact</a>
+        </nav>
+        <a href="/start.html" class="get-started">Get Started</a>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon for mobile -->
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="service-preview-section">
+    <div class="service-content">
+        <div class="service-image">
+            <img src="/rec/insta.png" alt="Instagram Ads">
+        </div>
+        <div class="service-info">
+            <h1>Instagram Ads</h1>
+            <p class="tagline">Capture Attention, Engage Your Audience, and Drive Sales on Instagram</p>
+            <p class="description">
+                Instagram Ads are one of the most effective ways to grow your Shopify store by reaching your ideal customers on one of the world’s most popular social media platforms. With over 1 billion active monthly users, Instagram offers unparalleled opportunities for visual storytelling and engagement. Our Instagram Ads service helps you create stunning ad campaigns tailored to your target audience, ensuring your brand stands out in a crowded feed. From eye-catching visuals to precise targeting, we deliver campaigns designed to drive traffic, boost conversions, and grow your brand.
+            </p>
+            <div class="price-duration">
+                <p class="price"><strong>Investment:</strong> $399</p>
+                <p class="duration"><strong>Duration:</strong> 1 Month</p>
+            </div>
+            <a href="#contact" class="cta-button">Get Started with Instagram Ads</a>
+        </div>
+    </div>
+
+    <!-- Advanced Collapsible Sections for Key Features and Benefits -->
+    <div class="service-details">
+        <div class="collapsible-section features-section">
+            <h2>Key Features <span class="info-text">(Click to Explore)</span></h2>
+            <ul class="collapsible-list">
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">🎨</span> Visually Stunning Ad Designs
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Instagram is a highly visual platform, and your ads need to stand out. We create visually stunning ad designs, including carousel ads, stories, reels, and video ads, tailored to capture attention and drive engagement. With users spending an average of 28 minutes daily on Instagram, compelling visuals are key to making an impact.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">🎯</span> Advanced Audience Targeting
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Our Instagram Ads campaigns leverage Facebook’s advanced targeting capabilities to reach your ideal audience. Whether it’s by age, interests, location, or behaviors, we ensure your ads are seen by users most likely to convert. Targeted campaigns are proven to generate higher engagement and ROI, minimizing ad spend while maximizing results.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">📈</span> Data-Driven Campaign Optimization
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            We monitor your campaigns in real-time, analyzing performance metrics such as impressions, click-through rates (CTR), and conversions. Using this data, we optimize your ads to improve performance continuously. A/B testing ensures that your campaigns are always evolving to deliver the best possible results.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">📹</span> Engaging Video and Story Ads
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Video and story ads are among the most engaging formats on Instagram. We create short, impactful videos and story ads designed to resonate with your audience. Studies show that video ads have 38% higher engagement rates than image ads, making them a powerful tool for driving brand awareness and sales.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapsible-section benefits-section">
+            <h2>Benefits <span class="info-text">(Click to Explore)</span></h2>
+            <ul class="collapsible-list">
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">📸</span> Increased Brand Awareness and Engagement
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Instagram Ads put your brand in front of a highly engaged audience, increasing visibility and awareness. With consistent exposure, your brand becomes more recognizable and trusted. Research shows that 81% of Instagram users use the platform to research products and services, making it a powerful tool for engagement.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">💰</span> Higher ROI and Cost-Effective Advertising
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Instagram Ads allow you to set flexible budgets and target the right audience, ensuring that every dollar is spent effectively. Our campaigns focus on driving high-quality traffic and conversions, delivering an excellent return on investment. Studies show that Instagram Ads drive 3x more engagement than other social media platforms.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">🎯</span> Improved Customer Targeting
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Advanced targeting ensures that your ads reach customers most likely to convert. Personalized, targeted ads resonate more with audiences, leading to higher click-through and conversion rates. Instagram’s targeting capabilities make it possible to connect with the right customers at the right time.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">📊</span> Actionable Insights and Analytics
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Each Instagram Ads campaign includes detailed analytics, providing insights into audience behavior, engagement, and performance. This data helps refine your strategy and ensures that every campaign is aligned with your business goals, driving continuous improvement and better results.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Updated CSS for Advanced Styling and Layout -->
+<style>
+    /* Service Section Layout */
+    .service-preview-section {
+        padding: 80px 5%;
+        background: linear-gradient(135deg, #1c1c1c, #000000);
+        color: #ADD8E6;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Centering the Image */
+    .service-image {
+        display: flex;
+        justify-content: center;
+        margin: 30px 0;
+    }
+
+    .service-image img {
+        width: 100%;
+        max-width: 700px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(173, 216, 230, 0.4);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .service-image img:hover {
+        transform: scale(1.03);
+    }
+
+    /* Content and Typography */
+    .service-info h1 {
+        font-size: 3em;
+        color: #FFA07A;
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .tagline {
+        font-size: 1.4em;
+        color: #ADD8E6;
+        text-align: center;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
+    .description {
+        font-size: 1.1em;
+        color: #e6e6e6;
+        line-height: 1.8;
+        text-align: justify;
+        max-width: 750px;
+        margin: 0 auto 30px;
+        animation: fadeIn 1s ease-in;
+    }
+
+    .price-duration {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        color: #FFA07A;
+        margin-bottom: 30px;
+    }
+
+    /* Call-to-Action Button */
+    .cta-button {
+        display: inline-block;
+        padding: 12px 40px;
+        background-color: #FFA07A;
+        color: #000;
+        font-size: 1.2em;
+        font-weight: bold;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0px 6px 15px rgba(255, 160, 122, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+        margin: 20px auto;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 10px 25px rgba(255, 160, 122, 0.6);
+    }
+
+    /* Collapsible Sections */
+    .collapsible-section {
+        width: 100%;
+        max-width: 850px;
+        margin: 20px auto;
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .collapsible-section h2 {
+        font-size: 2em;
+        color: #FFA07A;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .info-text {
+        font-size: 0.8em;
+        color: #FFDAB9;
+    }
+
+    .collapsible-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Collapsible Buttons and Content */
+    .collapsible {
+        background-color: #333;
+        color: #ADD8E6;
+        font-size: 1.1em;
+        border: none;
+        width: 100%;
+        padding: 15px 20px;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    .collapsible:hover {
+        background-color: #444;
+    }
+
+    .collapsible-content {
+        display: none;
+        padding: 15px;
+        font-size: 1em;
+        color: #e6e6e6;
+        line-height: 1.6;
+        border-radius: 5px;
+        background: #222;
+        margin-top: 8px;
+        animation: slideDown 0.3s ease;
+    }
+
+    .icon {
+        font-size: 1.3em;
+        margin-right: 10px;
+    }
+
+    .toggle-icon {
+        font-size: 1.3em;
+        transition: transform 0.3s ease;
+    }
+
+    .collapsible.active .toggle-icon {
+        transform: rotate(45deg);
+    }
+
+    /* Keyframes for Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from { max-height: 0; }
+        to { max-height: 100%; }
+    }
+
+    /* Responsive Styling */
+    @media (max-width: 768px) {
+        .service-preview-section {
+            padding: 60px 20px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const collapsibles = document.getElementsByClassName("collapsible");
+        Array.from(collapsibles).forEach((collapsible) => {
+            collapsible.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                content.style.display = content.style.display === "block" ? "none" : "block";
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Ultra-Advanced Text Effect Section -->
+<section class="text-effect-section">
+    <h1 class="animated-text">Transform Your Vision</h1>
+</section>
+
+<style>
+    /* Text Effect Section Styling */
+    .text-effect-section {
+        background-color: #000000; /* Extreme black background */
+        padding: 100px 20px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    /* Animated Text Styling */
+    .animated-text {
+        font-size: 6em;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 900;
+        color: #ADD8E6;
+        text-transform: uppercase;
+        letter-spacing: 12px;
+        text-shadow: 0px 0px 25px rgba(173, 216, 230, 0.8), 0px 0px 40px rgba(255, 160, 122, 0.6);
+        animation: pulse 1.5s infinite alternate, glow 2.5s infinite alternate, rotatePulse 8s infinite linear, popOut 1.2s infinite alternate;
+        position: relative;
+    }
+
+    /* Pulsing Effect */
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1); /* Slightly larger zoom effect */
+        }
+    }
+
+    /* Glowing Effect */
+    @keyframes glow {
+        0% {
+            text-shadow: 0px 0px 20px rgba(173, 216, 230, 0.6), 0px 0px 30px rgba(255, 160, 122, 0.5);
+            color: #ADD8E6;
+        }
+        100% {
+            text-shadow: 0px 0px 30px rgba(255, 160, 122, 0.8), 0px 0px 50px rgba(255, 215, 135, 0.6);
+            color: #FFA07A;
+        }
+    }
+
+    /* 3D Rotate Pulse */
+    @keyframes rotatePulse {
+        0% {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            transform: rotateX(10deg) rotateY(10deg) scale(1.05);
+        }
+        100% {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+    }
+
+    /* Popping Out Effect */
+    @keyframes popOut {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0.9;
+            transform: scale(1.03); /* Slight enlargement */
+        }
+    }
+
+    /* Responsive Font Adjustment */
+    @media (max-width: 768px) {
+        .animated-text {
+            font-size: 4.5em;
+            letter-spacing: 5px;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2024 Dynamic Marketing Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Toggle Menu JavaScript -->
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

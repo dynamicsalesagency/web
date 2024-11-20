@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra-Advanced 3D Portfolio Website</title>
+
+    <!-- Font Awesome for Social Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: #ADD8E6;
+            overflow-x: hidden;
+        }
+        a {
+            color: #ADD8E6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #FFA07A;
+        }
+
+        /* Ultra-Advanced Header Styling */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+        .header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 30px rgba(173, 216, 230, 0.3);
+        }
+
+        /* Rotating Logo */
+        .logo img {
+            height: 60px;
+            transition: transform 0.6s ease-in-out;
+            transform-origin: center;
+        }
+        .logo img:hover {
+            transform: rotateY(360deg) scale(1.1);
+            box-shadow: 0px 0px 20px rgba(173, 216, 230, 0.6);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-menu a {
+            font-size: 18px;
+            color: #ADD8E6;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease, transform 0.3s ease;
+            letter-spacing: 1px;
+        }
+        .nav-menu a:hover {
+            color: #FFA07A;
+            transform: translateY(-3px);
+        }
+        .nav-menu a::before, .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #ADD8E6;
+            transition: width 0.3s ease;
+            bottom: -4px;
+            left: 50%;
+        }
+        .nav-menu a:hover::before, .nav-menu a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Get Started Button */
+        .get-started {
+            background-color: #ADD8E6;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 50px;
+            box-shadow: 0px 10px 30px rgba(173, 216, 230, 0.5);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .get-started:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0px 15px 45px rgba(173, 216, 230, 0.7);
+        }
+
+        /* Mobile Toggle Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: #ADD8E6;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                background-color: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 80px;
+                right: 0;
+                width: 100%;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0px 4px 20px rgba(173, 216, 230, 0.3);
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #000000;
+            padding: 60px 20px;
+            color: #ADD8E6;
+            text-align: center;
+            box-shadow: 0px -4px 20px rgba(173, 216, 230, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-links a {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-shadow: 0px 0px 5px rgba(173, 216, 230, 0.5);
+            transition: transform 0.4s ease, text-shadow 0.3s ease;
+        }
+        .footer-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            text-shadow: 0px 0px 15px #ADD8E6;
+        }
+
+        /* Social Icons */
+        .social-icons a {
+            margin: 0 15px;
+            font-size: 28px;
+            color: #ADD8E6;
+            transition: transform 0.3s ease, color 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(173, 216, 230, 0.3);
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+        .social-icons a:hover {
+            color: #FFA07A;
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0px 10px 30px rgba(255, 160, 122, 0.6);
+        }
+
+        /* Background Gradient Glow in Footer */
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(173, 216, 230, 0.1), transparent 70%);
+            animation: pulse 8s infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="/img/logo.png" alt="Logo"> <!-- Replace 'logo.png' with your logo image path -->
+        </div>
+        <nav class="nav-menu" id="navMenu">
+            <a href="/index.html">Home</a>
+            <a href="/service.html">Services</a>
+            <a href="/pastwork.html">Portfolio</a>
+            <a href="/blog.html">Blog</a>
+            <a href="/start.html">Contact</a>
+        </nav>
+        <a href="/start.html" class="get-started">Get Started</a>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon for mobile -->
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="service-preview-section">
+    <div class="service-content">
+        <div class="service-image">
+            <img src="/rec/emailc.png" alt="Organic Traffic Optimization">
+        </div>
+        <div class="service-info">
+            <h1>Organic Traffic Optimization (OTO)</h1>
+            <p class="tagline">Achieve Consistent, Sustainable Growth Without the Cost of Ads</p>
+            <p class="description">
+                Imagine a continuous flow of engaged customers discovering your Shopify store through search engines and social media, entirely organically. This is the foundation of our Organic Traffic Optimization (OTO) service. Unlike paid advertising that can be costly and short-lived, OTO prioritizes sustainable, long-term growth by enhancing your brand's online authority and driving quality, targeted traffic. With OTO, you’ll not only reach customers actively searching for products like yours but also build lasting brand authority in your niche. If you're ready for a strategy that delivers consistent results without recurring ad costs, OTO is designed to help your ecommerce business thrive.
+            </p>
+            <div class="price-duration">
+                <p class="price"><strong>Investment:</strong> $299</p>
+                <p class="duration"><strong>Duration:</strong> 3 Months</p>
+            </div>
+            <a href="#contact" class="cta-button">Get Started with OTO</a>
+        </div>
+    </div>
+
+    <!-- Advanced Collapsible Sections for Key Features and Benefits -->
+    <div class="service-details">
+        <div class="collapsible-section features-section">
+            <h2>Key Features <span class="info-text">(Click to Explore)</span></h2>
+            <ul class="collapsible-list">
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">🔍</span> In-Depth Keyword Research & Content Strategy
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            We start with thorough keyword research, pinpointing the exact search terms potential customers are using. But OTO goes beyond keywords. We design a content strategy that connects with customer intent, targeting high-converting keywords with content that’s valuable and engaging. In fact, 75% of users never scroll past the first page of search results, so our goal is to get your products in front of them by improving your store’s relevance and ranking.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">🛍️</span> SEO-Optimized Product Descriptions
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            First impressions are everything, especially on product pages. Each product description is optimized with SEO-friendly, conversion-focused content that speaks to the needs and questions of your customers. By integrating strategic keywords in a natural way, we enhance your product visibility and increase conversion rates. Consider this: stores with well-optimized content have been shown to attract up to 200% more organic traffic.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">📈</span> Customized Social Media Strategy
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            OTO isn’t just about search engine ranking; it’s about building a cross-platform presence. We develop a social media strategy tailored to increase visibility on key platforms like Instagram, Pinterest, and Facebook, where ecommerce thrives. Social media is responsible for nearly 30% of all online referral traffic—our strategy taps into this potential, showcasing your brand across multiple channels to drive organic traffic and build brand loyalty.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">📊</span> Data-Driven Adjustments and Monthly Reports
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Ongoing success requires consistent refinement. With OTO, you’ll receive monthly analytics reports showing traffic sources, keyword rankings, and customer behavior insights. We adjust our approach based on real-time data to maximize results. Our goal is simple: to keep improving your organic traffic month over month, building momentum that brings lasting results.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapsible-section benefits-section">
+            <h2>Benefits <span class="info-text">(Click to Explore)</span></h2>
+            <ul class="collapsible-list">
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">🌟</span> Consistent, Quality Traffic Without Ad Spend
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            With OTO, you’re building a foundation for consistent, organic traffic. Unlike paid ads that stop once your budget is exhausted, organic traffic brings in visitors over the long term. In fact, 70% of marketers say SEO is more effective than PPC for generating sales leads. Every visitor from OTO is genuinely interested because they found you naturally, making them more likely to engage, buy, and become repeat customers.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">💰</span> Cost-Effective Growth with Compounding Returns
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Think of OTO as an investment that continues to pay off. Once your store ranks well, you’ll see consistent traffic without needing to constantly spend on ads. Organic traffic growth compounds over time, with SEO improvements building upon each other. Studies show that a well-optimized site can attract up to 5 times more traffic than an unoptimized one—this means sustainable growth and increased sales month after month.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">🏆</span> Enhanced Brand Authority and Trust
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Organic ranking not only drives traffic but builds your brand’s credibility. Customers trust brands that rank organically more than brands relying solely on paid ads. With OTO, your store becomes a recognized authority in your niche, positioning you as a trusted choice. Trust drives purchases, and OTO strengthens your brand’s reputation, making customers more likely to buy from you and return in the future.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <button class="collapsible">
+                        <span class="icon">📈</span> Higher Return on Investment (ROI)
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="collapsible-content">
+                        <p>
+                            Investing in OTO delivers returns that far exceed what you’d typically see with paid ads. Studies show that organic SEO has a much higher ROI, with nearly 75% of businesses stating that organic traffic is their best-performing channel. By focusing on a sustainable, long-term strategy, OTO ensures that every dollar spent translates to ongoing visibility, increased brand awareness, and consistent sales growth.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Updated CSS for Advanced Styling and Layout -->
+<style>
+    /* Service Section Layout */
+    .service-preview-section {
+        padding: 80px 5%;
+        background: linear-gradient(135deg, #1c1c1c, #000000);
+        color: #ADD8E6;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Centering the Image */
+    .service-image {
+        display: flex;
+        justify-content: center;
+        margin: 30px 0;
+    }
+
+    .service-image img {
+        width: 100%;
+        max-width: 700px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(173, 216, 230, 0.4);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .service-image img:hover {
+        transform: scale(1.03);
+    }
+
+    /* Content and Typography */
+    .service-info h1 {
+        font-size: 3em;
+        color: #FFA07A;
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .tagline {
+        font-size: 1.4em;
+        color: #ADD8E6;
+        text-align: center;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
+    .description {
+        font-size: 1.1em;
+        color: #e6e6e6;
+        line-height: 1.8;
+        text-align: justify;
+        max-width: 750px;
+        margin: 0 auto 30px;
+        animation: fadeIn 1s ease-in;
+    }
+
+    .price-duration {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        color: #FFA07A;
+        margin-bottom: 30px;
+    }
+
+    /* Call-to-Action Button */
+    .cta-button {
+        display: inline-block;
+        padding: 12px 40px;
+        background-color: #FFA07A;
+        color: #000;
+        font-size: 1.2em;
+        font-weight: bold;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0px 6px 15px rgba(255, 160, 122, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+        margin: 20px auto;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 10px 25px rgba(255, 160, 122, 0.6);
+    }
+
+    /* Collapsible Sections */
+    .collapsible-section {
+        width: 100%;
+        max-width: 850px;
+        margin: 20px auto;
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .collapsible-section h2 {
+        font-size: 2em;
+        color: #FFA07A;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .info-text {
+        font-size: 0.8em;
+        color: #FFDAB9;
+    }
+
+    .collapsible-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Collapsible Buttons and Content */
+    .collapsible {
+        background-color: #333;
+        color: #ADD8E6;
+        font-size: 1.1em;
+        border: none;
+        width: 100%;
+        padding: 15px 20px;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    .collapsible:hover {
+        background-color: #444;
+    }
+
+    .collapsible-content {
+        display: none;
+        padding: 15px;
+        font-size: 1em;
+        color: #e6e6e6;
+        line-height: 1.6;
+        border-radius: 5px;
+        background: #222;
+        margin-top: 8px;
+        animation: slideDown 0.3s ease;
+    }
+
+    .icon {
+        font-size: 1.3em;
+        margin-right: 10px;
+    }
+
+    .toggle-icon {
+        font-size: 1.3em;
+        transition: transform 0.3s ease;
+    }
+
+    .collapsible.active .toggle-icon {
+        transform: rotate(45deg);
+    }
+
+    /* Keyframes for Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from { max-height: 0; }
+        to { max-height: 100%; }
+    }
+
+    /* Responsive Styling */
+    @media (max-width: 768px) {
+        .service-preview-section {
+            padding: 60px 20px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const collapsibles = document.getElementsByClassName("collapsible");
+        Array.from(collapsibles).forEach((collapsible) => {
+            collapsible.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                content.style.display = content.style.display === "block" ? "none" : "block";
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Ultra-Advanced Text Effect Section -->
+<section class="text-effect-section">
+    <h1 class="animated-text">Transform Your Vision</h1>
+</section>
+
+<style>
+    /* Text Effect Section Styling */
+    .text-effect-section {
+        background-color: #000000; /* Extreme black background */
+        padding: 100px 20px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    /* Animated Text Styling */
+    .animated-text {
+        font-size: 6em;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 900;
+        color: #ADD8E6;
+        text-transform: uppercase;
+        letter-spacing: 12px;
+        text-shadow: 0px 0px 25px rgba(173, 216, 230, 0.8), 0px 0px 40px rgba(255, 160, 122, 0.6);
+        animation: pulse 1.5s infinite alternate, glow 2.5s infinite alternate, rotatePulse 8s infinite linear, popOut 1.2s infinite alternate;
+        position: relative;
+    }
+
+    /* Pulsing Effect */
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1); /* Slightly larger zoom effect */
+        }
+    }
+
+    /* Glowing Effect */
+    @keyframes glow {
+        0% {
+            text-shadow: 0px 0px 20px rgba(173, 216, 230, 0.6), 0px 0px 30px rgba(255, 160, 122, 0.5);
+            color: #ADD8E6;
+        }
+        100% {
+            text-shadow: 0px 0px 30px rgba(255, 160, 122, 0.8), 0px 0px 50px rgba(255, 215, 135, 0.6);
+            color: #FFA07A;
+        }
+    }
+
+    /* 3D Rotate Pulse */
+    @keyframes rotatePulse {
+        0% {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            transform: rotateX(10deg) rotateY(10deg) scale(1.05);
+        }
+        100% {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+    }
+
+    /* Popping Out Effect */
+    @keyframes popOut {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            opacity: 0.9;
+            transform: scale(1.03); /* Slight enlargement */
+        }
+    }
+
+    /* Responsive Font Adjustment */
+    @media (max-width: 768px) {
+        .animated-text {
+            font-size: 4.5em;
+            letter-spacing: 5px;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2024 Dynamic Marketing Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Toggle Menu JavaScript -->
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
