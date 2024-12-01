@@ -28,6 +28,7 @@
             font-size: 3rem;
             text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .quote-display {
@@ -59,6 +60,8 @@
         .question-box {
             display: none;
             margin-top: 20px;
+            width: 90%;
+            max-width: 800px;
         }
 
         .question-box input {
@@ -69,7 +72,8 @@
             font-size: 16px;
             outline: none;
             margin-right: 10px;
-            width: 250px;
+            width: calc(100% - 130px); /* Adjust to fit the button */
+            max-width: 250px;
             border-radius: 5px;
         }
 
@@ -88,17 +92,14 @@
             background: #0a0;
         }
 
-        .access-message {
-            display: none;
-            font-size: 2rem;
+        .access-message, .denied-message {
+            font-size: 1.5rem;
             margin-top: 20px;
             text-shadow: 0 0 15px #0f0;
+            text-align: center;
         }
 
         .denied-message {
-            display: none;
-            font-size: 2rem;
-            margin-top: 20px;
             color: red;
             text-shadow: 0 0 15px red;
         }
@@ -123,6 +124,37 @@
         .proceed-button button:hover {
             background: #0a0;
         }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .quote-display {
+                height: 250px;
+                font-size: 12px;
+            }
+
+            .question-box input {
+                width: 100%;
+                max-width: none;
+                margin-bottom: 10px;
+            }
+
+            .question-box button {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .access-message, .denied-message {
+                font-size: 1.2rem;
+            }
+
+            .proceed-button button {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -146,6 +178,7 @@
     </div>
 
     <script>
+        // JavaScript remains unchanged
         const quoteDisplay = document.getElementById("quoteDisplay");
         const typedContent = document.getElementById("typedContent");
         const questionBox = document.getElementById("questionBox");
@@ -173,7 +206,6 @@
         let currentQuestion = {};
         let wrongAttempts = 0;
 
-        // Auto-type effect
         function typeText(text, callback) {
             let i = 0;
             const interval = setInterval(() => {
@@ -186,42 +218,37 @@
             }, 50);
         }
 
-        // Show random story/quote
         function showQuote() {
             const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
             typeText(randomQuote, showQuestion);
         }
 
-        // Show random question
         function showQuestion() {
             currentQuestion = questions[Math.floor(Math.random() * questions.length)];
             questionLabel.textContent = `Answer this: ${currentQuestion.question}`;
             questionBox.style.display = "block";
         }
 
-        // Check the user's answer
         function checkAnswer() {
             const userAnswer = answerInput.value.trim();
             if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
                 accessMessage.style.display = "block";
                 proceedButton.style.display = "block";
                 answerInput.disabled = true;
-                deniedMessage.style.display = "none"; // Hide Access Denied
+                deniedMessage.style.display = "none";
             } else {
                 wrongAttempts++;
-                deniedMessage.style.display = "block"; // Show Access Denied
+                deniedMessage.style.display = "block";
                 if (wrongAttempts >= 3) {
-                    window.location.href = "login.html"; // Replace with your login page
+                    window.location.href = "login.html";
                 }
             }
         }
 
-        // Redirect to another page
         function proceed() {
-            window.location.href = "shopify.html"; // Replace with your desired URL
+            window.location.href = "shopify.html";
         }
 
-        // Initialize
         showQuote();
     </script>
 </body>
