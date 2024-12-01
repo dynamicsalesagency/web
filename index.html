@@ -575,6 +575,240 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Key -->
+<div id="key" style="
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.3s ease-in-out;
+">
+    🔑
+</div>
+
+<!-- Door -->
+<div id="door" style="
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg, #5A3A2C, #3E241B);
+    border: 3px solid #3E241B;
+    transform-origin: right;
+    transform: rotateY(90deg);
+    transition: transform 1.5s ease-in-out;
+    z-index: 9998;
+">
+    <!-- Door Handle -->
+    <div id="keyhole" style="
+        position: absolute;
+        right: 10%;
+        top: 40%;
+        width: 30px;
+        height: 30px;
+        background: radial-gradient(circle, #FFD700, #CBA134);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        transition: box-shadow 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    ">
+        <!-- Keyhole -->
+        <div style="
+            width: 8px;
+            height: 12px;
+            background: #000;
+            border-radius: 2px;
+        "></div>
+    </div>
+</div>
+
+<!-- Glowing Effect -->
+<div id="heaven-effect" style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.3) 70%, rgba(255, 255, 255, 0) 100%);
+    animation: pulse 2s infinite;
+    z-index: 9997;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+"></div>
+
+<!-- Welcome Text -->
+<div id="welcome-text" style="
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 4rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #FFD700;
+    text-align: center;
+    text-shadow: 0 0 20px #FFD700, 0 0 30px #FFFF00, 0 0 40px #FFFFFF;
+    z-index: 9998;
+    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+    animation: text-shine 2s infinite alternate;
+">
+    Welcome to Dynamic Sales Creativity World
+</div>
+
+<!-- Sounds -->
+<audio id="keyInsertSound" src="key-insert.mp3"></audio>
+<audio id="doorOpenSound" src="door-open.mp3"></audio>
+
+<style>
+    /* Pulsating Animation */
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        50% {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+    }
+
+    /* Shining Text Animation */
+    @keyframes text-shine {
+        0% {
+            text-shadow: 0 0 10px #FFD700, 0 0 20px #FFFF00, 0 0 30px #FFFFFF;
+        }
+        100% {
+            text-shadow: 0 0 20px #FFD700, 0 0 40px #FFFF00, 0 0 60px #FFFFFF;
+        }
+    }
+</style>
+
+<script>
+    const key = document.getElementById('key');
+    const door = document.getElementById('door');
+    const keyhole = document.getElementById('keyhole');
+    const heavenEffect = document.getElementById('heaven-effect');
+    const welcomeText = document.getElementById('welcome-text');
+    const keyInsertSound = document.getElementById('keyInsertSound');
+    const doorOpenSound = document.getElementById('doorOpenSound');
+
+    // Function to calculate dynamic position for the key
+    function moveKeyToKeyhole() {
+        const doorHandle = door.querySelector('div'); // Select the door handle
+        const doorHandleRect = doorHandle.getBoundingClientRect(); // Get handle position
+        const keyRect = key.getBoundingClientRect(); // Get key position
+
+        // Calculate the required translations to align key with the keyhole
+        const translateX = doorHandleRect.left + doorHandleRect.width / 2 - keyRect.left - keyRect.width / 2;
+        const translateY = doorHandleRect.top + doorHandleRect.height / 2 - keyRect.top - keyRect.height / 2;
+
+        return { translateX, translateY };
+    }
+
+    // Add click event listener to the key
+    key.addEventListener('click', () => {
+        // Show the door
+        door.style.display = 'block'; // Make the door visible
+
+        // Move the key directly into the keyhole
+        const { translateX, translateY } = moveKeyToKeyhole();
+        key.style.transition = 'transform 1.5s ease-in-out';
+        key.style.transform = `translate(${translateX}px, ${translateY}px)`;
+
+        // Glow effect on keyhole as the key approaches
+        keyhole.style.boxShadow = '0 0 20px #FFD700';
+        keyhole.style.backgroundColor = '#FFFF00';
+
+        // Simulate key inserting into the keyhole
+        setTimeout(() => {
+            keyInsertSound.play(); // Play key insert sound (4 seconds)
+            key.style.transform += ' rotate(90deg)'; // Key rotates in the hole
+
+            // Wait for the key sound to finish before opening the door
+            setTimeout(() => {
+                doorOpenSound.play(); // Play door opening sound (1 second)
+                door.style.transform = 'rotateY(0deg)'; // Open the door
+
+                // Trigger heaven-like glowing effect
+                heavenEffect.style.display = 'block';
+                heavenEffect.style.opacity = '1';
+
+                // Show welcome text
+                welcomeText.style.display = 'block';
+                welcomeText.style.transform = 'translate(-50%, -50%) scale(1)';
+                welcomeText.style.opacity = '1';
+
+                // Redirect to the next page after the welcome text
+                setTimeout(() => {
+                    window.location.href = "login.html"; // Replace with your target URL
+                }, 3000); // Wait for text display before redirecting
+            }, 4000); // Wait for the key sound to finish
+        }, 1500); // Wait for the key to align
+    });
+
+    // Responsive adjustments
+    window.addEventListener('resize', () => {
+        key.style.transform = ''; // Reset key position on resize
+        keyhole.style.boxShadow = ''; // Reset keyhole glow
+        door.style.transform = 'rotateY(90deg)'; // Reset door position
+        heavenEffect.style.opacity = '0'; // Reset glow effect
+        welcomeText.style.transform = 'translate(-50%, -50%) scale(0)'; // Reset text
+        welcomeText.style.opacity = '0';
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
     <!-- Festive Icon Trigger (Hidden Initially) -->
 <div id="popupIcon" class="popup-trigger-icon" onclick="openPopup()">🎄</div>
 
