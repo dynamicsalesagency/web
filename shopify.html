@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Store Extractor</title>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Reset and Base Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Search Section */
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1.2s ease-in-out;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .search-box input,
+        .search-box select,
+        .search-box button {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .search-box input:focus {
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .search-box button {
+            background: #28a745;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .search-box button:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        /* Results Section */
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 90%;
+            margin-top: 30px;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            color: #333;
+            animation: popIn 0.6s ease-in-out;
+        }
+
+        .result-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            color: #007bff;
+        }
+
+        .result-card h3 a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .result-card h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .result-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        /* Export Button */
+        .export-button {
+            margin: 20px auto;
+            padding: 12px 20px;
+            font-size: 1rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .export-button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopify Store Extractor</h1>
+    <div class="search-box">
+        <input type="text" id="keywords" placeholder="Keywords (e.g., 'new store')">
+        <input type="text" id="date-range" placeholder="Select Date Range">
+        <select id="filter-options">
+            <option value="all">All Stores</option>
+            <option value="with-email">With Email</option>
+            <option value="with-phone">With Phone</option>
+            <option value="no-contact">No Contact Info</option>
+        </select>
+        <button onclick="searchStores()">Search</button>
+    </div>
+
+    <div class="results" id="results"></div>
+    <button class="export-button" onclick="exportResults()" style="display: none;">Export Results</button>
+
+    <script>
+        const API_KEY = 'AIzaSyDrazf9MvDxmI-uiEWtopKEqjI5LWvavg4';
+        const CX = '314289da4059a4309';
+        let allResults = [];
+
+        flatpickr("#date-range", {
+            mode: "range",
+            dateFormat: "Y-m-d"
+        });
+
+        async function searchStores() {
+            const keywords = document.getElementById('keywords').value || 'new store';
+            const dateRange = document.getElementById('date-range').value.split(" to ");
+            const filterOption = document.getElementById('filter-options').value;
+            const resultsContainer = document.getElementById('results');
+
+            resultsContainer.innerHTML = '<p>Loading...</p>';
+            allResults = [];
+
+            try {
+                let start = 1;
+                let dateFilter = '';
+                if (dateRange[0]) dateFilter += ` after:${dateRange[0]}`;
+                if (dateRange[1]) dateFilter += ` before:${dateRange[1]}`;
+
+                const query = `site:myshopify.com ${keywords} ${dateFilter}`;
+                while (start <= 100) {
+                    const url = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&q=${query}&start=${start}`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    if (data.items) {
+                        data.items.forEach(item => {
+                            allResults.push({
+                                url: item.link,
+                                snippet: item.snippet
+                            });
+                        });
+                    } else {
+                        break;
+                    }
+
+                    start += 10;
+                }
+
+                displayResults();
+            } catch (error) {
+                resultsContainer.innerHTML = '<p>Error fetching results.</p>';
+            }
+        }
+
+        function displayResults() {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+
+            if (allResults.length > 0) {
+                allResults.forEach(result => {
+                    const card = document.createElement('div');
+                    card.classList.add('result-card');
+                    card.innerHTML = `
+                        <h3><a href="${result.url}" target="_blank">${result.url}</a></h3>
+                        <p>${result.snippet}</p>
+                    `;
+                    resultsContainer.appendChild(card);
+                });
+
+                document.querySelector('.export-button').style.display = 'block';
+            } else {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+            }
+        }
+
+        function exportResults() {
+            if (allResults.length === 0) {
+                alert('No results to export.');
+                return;
+            }
+
+            const data = allResults.map(result => `URL: ${result.url}\nSnippet: ${result.snippet}\n\n`);
+            const blob = new Blob(data, { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'shopify_results.txt';
+            link.click();
+        }
+    </script>
+</body>
+</html>

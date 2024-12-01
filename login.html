@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page with Popups</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: #fff;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-container h2 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .login-container h2::after {
+            content: "";
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: block;
+            margin: 10px auto;
+            border-radius: 3px;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            padding-left: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            outline: none;
+            font-size: 14px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #ccc;
+        }
+
+        .form-group input:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
+        }
+
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            color: #6a11cb;
+            font-size: 18px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .forgot-password {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .forgot-password a {
+            color: #6a11cb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #2575fc;
+        }
+
+        /* Popup Styles */
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            animation: slideUp 0.5s ease-in-out forwards, fadeOut 3s 2.5s forwards;
+        }
+
+        .popup.success {
+            background: #4caf50;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Sign In</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+        <div class="forgot-password">
+            <a href="#" onclick="resetPassword()">Forgot Password?</a>
+        </div>
+    </div>
+
+    <!-- Popups -->
+    <div id="popup" class="popup"></div>
+
+    <script>
+        // Predefined credentials
+        const predefinedEmail = "muhammedsbuhari@gmail.com";
+        const predefinedPassword = "11111_Aaa";
+
+        const loginForm = document.getElementById("loginForm");
+        const popup = document.getElementById("popup");
+
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (email !== predefinedEmail) {
+                showPopup("Incorrect email address!", "error");
+                return;
+            }
+
+            if (password !== predefinedPassword) {
+                showPopup("Incorrect password!", "error");
+                return;
+            }
+
+            // Show success message and redirect
+            showPopup("Login successful!", "success");
+            setTimeout(() => {
+                window.location.href = "dashboard.html"; // Replace with your desired page
+            }, 3000);
+        });
+
+        function showPopup(message, type) {
+            popup.textContent = message;
+            popup.className = `popup ${type === "success" ? "success" : ""}`;
+            popup.style.display = "block";
+
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 3500); // Ensure popup hides after fading out
+        }
+
+        // Reset password logic
+        function resetPassword() {
+            showPopup("Please contact the administrator to reset your password.", "error");
+        }
+    </script>
+</body>
+</html>
