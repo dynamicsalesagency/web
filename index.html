@@ -408,6 +408,193 @@
 
 
 
+
+
+
+
+    
+<!-- Full-Width Image Banner Slider with Separate Mobile and Desktop Images -->
+<section class="slider" id="slider">
+    <div class="slide" id="slide">
+        <!-- Slide 1 -->
+        <picture class="slider-image">
+            <source media="(max-width: 768px)" srcset="img/mobile2.png">
+            <source media="(min-width: 769px)" srcset="img/2.png">
+            <img src="img/2.png" alt="Slide 1">
+        </picture>
+        
+        <!-- Slide 2 -->
+        <picture class="slider-image">
+            <source media="(max-width: 768px)" srcset="img/mobile1.png">
+            <source media="(min-width: 769px)" srcset="img/1.png">
+            <img src="img/1.png" alt="Slide 2">
+        </picture>
+        
+        <!-- Slide 3 -->
+        <picture class="slider-image">
+            <source media="(max-width: 768px)" srcset="img/mobile3.png">
+            <source media="(min-width: 769px)" srcset="img/3.png">
+            <img src="img/3.png" alt="Slide 3">
+        </picture>
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <div class="slider-nav">
+        <button onclick="prevSlide()">&#10094;</button>
+        <button onclick="nextSlide()">&#10095;</button>
+    </div>
+    
+    <!-- Dots Navigation -->
+    <div class="dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+</section>
+
+<style>
+    /* Full-Width Banner Slider Styling */
+    .slider {
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden;
+        background-color: #000; /* Dark background */
+    }
+
+    .slide {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 1s ease-in-out;
+    }
+
+    /* Picture and Image Styling */
+    .slider-image {
+        display: none; /* Hide all images by default */
+        width: 100%;
+        height: 100vh;
+    }
+
+    .slider-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Navigation Buttons */
+    .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+        padding: 0 20px;
+        z-index: 2;
+    }
+
+    .slider-nav button {
+        background-color: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: #ADD8E6;
+        padding: 15px;
+        font-size: 30px;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 0.3s, transform 0.3s;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Button shadow */
+    }
+
+    .slider-nav button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1); /* Button hover effect */
+    }
+
+    /* Dots Navigation */
+    .dots {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        z-index: 2;
+    }
+
+    .dot {
+        width: 15px;
+        height: 15px;
+        background-color: rgba(173, 216, 230, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .dot.active {
+        background-color: #ADD8E6;
+        box-shadow: 0 0 10px rgba(173, 216, 230, 0.8); /* Glow for active dot */
+    }
+</style>
+
+<script>
+    // JavaScript for Full-Width Banner Slider with Mobile-Specific Images
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slider-image");
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlides() {
+        // Hide all slides
+        slides.forEach(slide => { slide.style.display = "none"; });
+
+        // Remove active class from all dots
+        dots.forEach(dot => { dot.classList.remove("active"); });
+
+        // Increment slide index
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+
+        // Show the current slide
+        slides[slideIndex - 1].style.display = "block";
+
+        // Set active class on current dot
+        dots[slideIndex - 1].classList.add("active");
+
+        // Change image every 1 minute
+        setTimeout(showSlides, 60000);
+    }
+
+    // Initialize the slider
+    showSlides();
+
+    // Functions to navigate slides manually
+    function currentSlide(n) {
+        slideIndex = n - 1;
+        showSlides();
+    }
+
+    function prevSlide() {
+        slideIndex = (slideIndex - 2 + slides.length) % slides.length;
+        showSlides();
+    }
+
+    function nextSlide() {
+        showSlides();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="steps-section">
     <h2>Our 5 Key Steps to Shopify Success</h2>
     <p>Whether you're just starting or have already set up your Shopify store, it’s essential to analyze its potential for generating consistent sales. Let our expert consultancy guide you to maximize your store’s performance.</p>
@@ -808,178 +995,6 @@
 
     
 
-
-
-<!-- Full-Width Image Banner Slider with Separate Mobile and Desktop Images -->
-<section class="slider" id="slider">
-    <div class="slide" id="slide">
-        <!-- Slide 1 -->
-        <picture class="slider-image">
-            <source media="(max-width: 768px)" srcset="img/mobile2.png">
-            <source media="(min-width: 769px)" srcset="img/2.png">
-            <img src="img/2.png" alt="Slide 1">
-        </picture>
-        
-        <!-- Slide 2 -->
-        <picture class="slider-image">
-            <source media="(max-width: 768px)" srcset="img/mobile1.png">
-            <source media="(min-width: 769px)" srcset="img/1.png">
-            <img src="img/1.png" alt="Slide 2">
-        </picture>
-        
-        <!-- Slide 3 -->
-        <picture class="slider-image">
-            <source media="(max-width: 768px)" srcset="img/mobile3.png">
-            <source media="(min-width: 769px)" srcset="img/3.png">
-            <img src="img/3.png" alt="Slide 3">
-        </picture>
-    </div>
-    
-    <!-- Navigation Arrows -->
-    <div class="slider-nav">
-        <button onclick="prevSlide()">&#10094;</button>
-        <button onclick="nextSlide()">&#10095;</button>
-    </div>
-    
-    <!-- Dots Navigation -->
-    <div class="dots">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
-</section>
-
-<style>
-    /* Full-Width Banner Slider Styling */
-    .slider {
-        position: relative;
-        width: 100%;
-        height: 100vh; /* Full viewport height */
-        overflow: hidden;
-        background-color: #000; /* Dark background */
-    }
-
-    .slide {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        transition: transform 1s ease-in-out;
-    }
-
-    /* Picture and Image Styling */
-    .slider-image {
-        display: none; /* Hide all images by default */
-        width: 100%;
-        height: 100vh;
-    }
-
-    .slider-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    /* Navigation Buttons */
-    .slider-nav {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-50%);
-        padding: 0 20px;
-        z-index: 2;
-    }
-
-    .slider-nav button {
-        background-color: rgba(0, 0, 0, 0.5);
-        border: none;
-        color: #ADD8E6;
-        padding: 15px;
-        font-size: 30px;
-        cursor: pointer;
-        border-radius: 50%;
-        transition: background-color 0.3s, transform 0.3s;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Button shadow */
-    }
-
-    .slider-nav button:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-        transform: scale(1.1); /* Button hover effect */
-    }
-
-    /* Dots Navigation */
-    .dots {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 15px;
-        z-index: 2;
-    }
-
-    .dot {
-        width: 15px;
-        height: 15px;
-        background-color: rgba(173, 216, 230, 0.5);
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .dot.active {
-        background-color: #ADD8E6;
-        box-shadow: 0 0 10px rgba(173, 216, 230, 0.8); /* Glow for active dot */
-    }
-</style>
-
-<script>
-    // JavaScript for Full-Width Banner Slider with Mobile-Specific Images
-    let slideIndex = 0;
-    const slides = document.querySelectorAll(".slider-image");
-    const dots = document.querySelectorAll(".dot");
-
-    function showSlides() {
-        // Hide all slides
-        slides.forEach(slide => { slide.style.display = "none"; });
-
-        // Remove active class from all dots
-        dots.forEach(dot => { dot.classList.remove("active"); });
-
-        // Increment slide index
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1 }
-
-        // Show the current slide
-        slides[slideIndex - 1].style.display = "block";
-
-        // Set active class on current dot
-        dots[slideIndex - 1].classList.add("active");
-
-        // Change image every 1 minute
-        setTimeout(showSlides, 60000);
-    }
-
-    // Initialize the slider
-    showSlides();
-
-    // Functions to navigate slides manually
-    function currentSlide(n) {
-        slideIndex = n - 1;
-        showSlides();
-    }
-
-    function prevSlide() {
-        slideIndex = (slideIndex - 2 + slides.length) % slides.length;
-        showSlides();
-    }
-
-    function nextSlide() {
-        showSlides();
-    }
-</script>
 
 
 
