@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic URL Extractor Pro</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      color: #37474f;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: bold;
+      color: #1e88e5;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 90%;
+      height: 150px;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 16px;
+      border: 1px solid #64b5f6;
+      border-radius: 10px;
+      background: #e3f2fd;
+      color: #37474f;
+      outline: none;
+      box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-group {
+      margin: 20px 0;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #42a5f5, #1e88e5);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 8px 15px rgba(33, 150, 243, 0.4);
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #1e88e5, #1565c0);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px rgba(33, 150, 243, 0.5);
+    }
+
+    .output-section {
+      margin-top: 30px;
+    }
+
+    .output-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .output-box h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #1e88e5;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .domain, .email {
+      padding: 10px 15px;
+      background: #bbdefb;
+      color: #37474f;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .domain a {
+      color: #1e88e5;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .domain a.visited {
+      color: #c62828;
+    }
+
+    /* Toast Notifications */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #42a5f5;
+      color: #ffffff;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      display: none;
+      animation: fadeInOut 3s ease forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      10%, 90% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 28px;
+      }
+
+      textarea {
+        height: 120px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toast {
+        font-size: 14px;
+        padding: 10px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Domain & Email Extractor</h2>
+    <textarea id="inputText" placeholder="Paste your text here..."></textarea>
+    <div class="btn-group">
+      <button onclick="extractData()">Extract</button>
+      <button onclick="downloadEmails()">Download Emails</button>
+      <button onclick="viewAnalytics()">View Analytics</button>
+    </div>
+    <div class="output-section">
+      <div class="output-box">
+        <h3>Extracted Domains</h3>
+        <div id="domainList" class="grid"></div>
+      </div>
+      <div class="output-box">
+        <h3>Extracted Emails</h3>
+        <div id="emailList" class="grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Toast Message</div>
+
+  <script>
+    const clickedDomains = new Set(JSON.parse(localStorage.getItem('clickedDomains')) || []);
+    let extractedDomains = [];
+    let extractedEmails = [];
+
+    function showToast(message, background = '#42a5f5') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.background = background;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+
+    function extractData() {
+      const inputText = document.getElementById('inputText').value;
+      const domainRegex = /\b(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/g;
+      const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
+
+      extractedDomains = [...new Set(inputText.match(domainRegex) || [])];
+      extractedEmails = [...new Set(inputText.match(emailRegex) || [])];
+
+      // Display Domains
+      const domainList = document.getElementById('domainList');
+      domainList.innerHTML = '';
+      extractedDomains.forEach(domain => {
+        const div = document.createElement('div');
+        div.className = 'domain';
+
+        const link = document.createElement('a');
+        link.textContent = domain;
+
+        if (clickedDomains.has(domain)) {
+          link.classList.add('visited');
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast(`You have already visited ${domain}.`, '#c62828');
+          });
+        } else {
+          link.href = `https://${domain}`;
+          link.target = '_blank';
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            clickedDomains.add(domain);
+            localStorage.setItem('clickedDomains', JSON.stringify([...clickedDomains]));
+            link.classList.add('visited');
+            showToast(`Visited: ${domain}`, '#c62828');
+          });
+        }
+
+        div.appendChild(link);
+        domainList.appendChild(div);
+      });
+
+      // Display Emails
+      const emailList = document.getElementById('emailList');
+      emailList.innerHTML = '';
+      extractedEmails.forEach(email => {
+        const div = document.createElement('div');
+        div.className = 'email';
+        div.textContent = email;
+        emailList.appendChild(div);
+      });
+
+      showToast(`Extracted ${extractedDomains.length} domains and ${extractedEmails.length} emails!`);
+    }
+
+    function downloadEmails() {
+      if (extractedEmails.length === 0) {
+        showToast('No emails to download!', '#c62828');
+        return;
+      }
+
+      const blob = new Blob([extractedEmails.join('\n')], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'extracted_emails.txt';
+      link.click();
+
+      showToast('Email list downloaded successfully!');
+    }
+
+    function viewAnalytics() {
+      showToast(`Analytics: ${extractedDomains.length} domains, ${extractedEmails.length} emails.`);
+    }
+  </script>
+</body>
+</html>
