@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic URL Extractor Pro</title>
+  <title>Domain & Email Extractor</title>
   <style>
     /* Global Styles */
     body {
@@ -49,7 +49,7 @@
       margin: 20px 0;
     }
 
-    button {
+    button, input[type="file"] {
       padding: 12px 25px;
       margin: 10px;
       font-size: 16px;
@@ -63,10 +63,15 @@
       box-shadow: 0 8px 15px rgba(33, 150, 243, 0.4);
     }
 
-    button:hover {
+    button:hover, input[type="file"]:hover {
       background: linear-gradient(135deg, #1e88e5, #1565c0);
       transform: translateY(-3px);
       box-shadow: 0 12px 20px rgba(33, 150, 243, 0.5);
+    }
+
+    input[type="file"] {
+      color: #ffffff;
+      cursor: pointer;
     }
 
     .output-section {
@@ -180,6 +185,9 @@
       <button onclick="downloadEmails()">Download Emails</button>
       <button onclick="viewAnalytics()">View Analytics</button>
     </div>
+    <div>
+      <input type="file" id="fileInput" accept=".txt, .csv, .xls, .xlsx" onchange="processFile(event)" />
+    </div>
     <div class="output-section">
       <div class="output-box">
         <h3>Extracted Domains</h3>
@@ -212,13 +220,39 @@
 
     function extractData() {
       const inputText = document.getElementById('inputText').value;
+      processText(inputText);
+    }
+
+    function processText(text) {
       const domainRegex = /\b(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/g;
       const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
 
-      extractedDomains = [...new Set(inputText.match(domainRegex) || [])];
-      extractedEmails = [...new Set(inputText.match(emailRegex) || [])];
+      extractedDomains = [...new Set(text.match(domainRegex) || [])];
+      extractedEmails = [...new Set(text.match(emailRegex) || [])];
 
-      // Display Domains
+      updateOutput();
+      showToast(`Extracted ${extractedDomains.length} domains and ${extractedEmails.length} emails!`);
+    }
+
+    function processFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const content = reader.result;
+        processText(content);
+      };
+
+      reader.onerror = () => {
+        showToast('Error reading file!', '#c62828');
+      };
+
+      reader.readAsText(file);
+    }
+
+    function updateOutput() {
+      // Update Domains
       const domainList = document.getElementById('domainList');
       domainList.innerHTML = '';
       extractedDomains.forEach(domain => {
@@ -226,6 +260,8 @@
         div.className = 'domain';
 
         const link = document.createElement('a');
+        link.href = `https://${domain}`;
+        link.target = '_blank';
         link.textContent = domain;
 
         if (clickedDomains.has(domain)) {
@@ -235,14 +271,11 @@
             showToast(`You have already visited ${domain}.`, '#c62828');
           });
         } else {
-          link.href = `https://${domain}`;
-          link.target = '_blank';
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
+          link.addEventListener('click', () => {
             clickedDomains.add(domain);
             localStorage.setItem('clickedDomains', JSON.stringify([...clickedDomains]));
             link.classList.add('visited');
-            showToast(`Visited: ${domain}`, '#c62828');
+            showToast(`Visited: ${domain}`, '#42a5f5');
           });
         }
 
@@ -250,7 +283,7 @@
         domainList.appendChild(div);
       });
 
-      // Display Emails
+      // Update Emails
       const emailList = document.getElementById('emailList');
       emailList.innerHTML = '';
       extractedEmails.forEach(email => {
@@ -259,8 +292,6 @@
         div.textContent = email;
         emailList.appendChild(div);
       });
-
-      showToast(`Extracted ${extractedDomains.length} domains and ${extractedEmails.length} emails!`);
     }
 
     function downloadEmails() {
